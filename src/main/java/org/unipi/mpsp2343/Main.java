@@ -3,7 +3,10 @@ package org.unipi.mpsp2343;
 import com.google.gson.JsonParseException;
 
 import java.io.IOException;
+import java.sql.Time;
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
@@ -12,11 +15,14 @@ public class Main {
     private static final Scanner scanner = new Scanner(System.in);
     private static String userInput = "";
 
+    private static DbProvider dbProvider;
+
     public static void main(String[] args) {
         System.out.println("Welcome to \"Java Weather App\"!\n");
 
         boolean exit = false;
 
+        dbProvider = DbProvider.getInstance();
         while(!exit){
             System.out.println("\nMenu\n------\n1. Get weather data\n2. Get averages\n3. Get maximums\n4. Get minimums\n\nType \"exit\" to exit the app.\n\nEnter option: ");
             userInput = scanner.nextLine().trim();
@@ -42,28 +48,22 @@ public class Main {
                     }
             }
         }
+        dbProvider.close();
     }
 
     public static void getWeatherData() {
         System.out.println("\nEnter city: ");
         userInput = scanner.nextLine().trim();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm a");
-        String timestamp = LocalDateTime.now().format(formatter);
+        Timestamp timestamp = Timestamp.valueOf(LocalDateTime.now());
 
         try {
             String json = APICalls.getCurrentWeatherByCity(userInput);
-
-            try {
-                WeatherData weatherData = JsonParsers.getWeatherData(json);
-                weatherData.setTimestamp(timestamp);
-
-                weatherData.print();
-            }
-            catch (JsonParseException e) {
-                System.out.println("\n" + e.getMessage());
-            }
+            WeatherData weatherData = JsonParsers.getWeatherData(json);
+            weatherData.setTimestamp(timestamp);
+            dbProvider.insertWeatherData(weatherData);
+            weatherData.print();
         }
-        catch (IOException e) {
+        catch (IOException | JsonParseException e) {
             System.out.println("\n" + e.getMessage());
         }
 
