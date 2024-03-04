@@ -1,7 +1,10 @@
 package org.unipi.mpsp2343;
 
+import org.unipi.mpsp2343.dbResultModels.Average;
+import org.unipi.mpsp2343.dbResultModels.Maximum;
+import org.unipi.mpsp2343.dbResultModels.Minimum;
+
 import java.sql.*;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -106,15 +109,94 @@ public class DbProvider implements AutoCloseable{ //implements AutoCloseable so 
             preparedStatement.setString(6, newWeatherData.getWeatherDesc());
             preparedStatement.setTimestamp(7, newWeatherData.getTimestamp());
             int count = preparedStatement.executeUpdate();
-            if(count>0){
-                System.out.println(count + " record updated");
-            }
-
-            System.out.println("Done!");
         } catch (SQLException ex) {
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
+    //function that gets the average of a column from the saved weather data
+    //can get average across all cities or for a user entered city
+    public Average getAverage(String column, String city){
+        Average average = null;
+        boolean includeCity = !city.isEmpty();
+        try (Statement statement = connection.createStatement();
+             PreparedStatement preparedStatement = connection.prepareStatement(
+                     "SELECT " + (includeCity ? "city, " : "") + "AVG(" + column + ") AS \"avg\" FROM WEATHERDATA "
+                             + (includeCity ? "WHERE LOWER(city) = ? GROUP BY city" : ""));){
+
+            if(includeCity){
+                preparedStatement.setString(1, city.toLowerCase());
+            }
+
+            ResultSet rs = preparedStatement.executeQuery();
+
+            while(rs.next()){
+                average = new Average("", 0f);
+                if(includeCity) {
+                    average.setCity(rs.getString("city"));
+                }
+                average.setAverage(rs.getFloat("avg"));
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return average;
+    }
+
+    //function that gets the maximum of a column from the saved weather data
+    //can get maximum across all cities or for a user entered city
+    public Maximum getMaximum(String column, String city){
+        Maximum maximum = null;
+        boolean forCity = !city.isEmpty();
+        try (Statement statement = connection.createStatement();
+             PreparedStatement preparedStatement = connection.prepareStatement(
+                     "SELECT city, MAX(" + column + ") AS \"max\", timestamp FROM WEATHERDATA "
+                             + (forCity ? "WHERE LOWER(city) = ?" : ""));){
+
+            if(forCity){
+                preparedStatement.setString(1, city.toLowerCase());
+            }
+
+            ResultSet rs = preparedStatement.executeQuery();
+
+            while(rs.next()){
+                maximum = new Maximum(rs.getString("city"), rs.getInt("max"), rs.getTimestamp("timestamp"), !forCity);
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return maximum;
+    }
+
+    //function that gets the minimum of a column from the saved weather data
+    //can get minimum across all cities or for a user entered city
+    public Minimum getMinimum(String column, String city){
+        Minimum minimum = null;
+        boolean includeCity = !city.isEmpty();
+        try (Statement statement = connection.createStatement();
+             PreparedStatement preparedStatement = connection.prepareStatement(
+                     "SELECT city, MIN(" + column + ") AS \"min\" FROM WEATHERDATA "
+                             + (includeCity ? "WHERE LOWER(city) = ? GROUP BY city" : ""));){
+
+            if(includeCity){
+                preparedStatement.setString(1, city.toLowerCase());
+            }
+
+            ResultSet rs = preparedStatement.executeQuery();
+
+            while(rs.next()){
+                minimum = new Minimum(rs.getString("city"), rs.getInt("min"), rs.getTimestamp("timestamp"), !includeCity);
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return minimum;
+    }
 }
 
