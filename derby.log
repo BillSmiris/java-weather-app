@@ -1,11 +1,11 @@
 ----------------------------------------------------------------
-Tue Mar 05 21:53:44 EET 2024:
-Booting Derby version The Apache Software Foundation - Apache Derby - 10.15.2.0 - (1873585): instance a816c00e-018e-102d-d92d-00000f4a9958 
-on database directory C:\Users\billy\Documents\Msc\prohgmena_themata_java\01_projects\3\source\msc_poroject_final\weatherapp with class loader jdk.internal.loader.ClassLoaders$AppClassLoader@76ed5528 
+Tue Mar 05 22:44:08 EET 2024:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.15.2.0 - (1873585): instance a816c00e-018e-105b-fe8b-00000f4a3ce8 
+on database directory C:\Users\billy\Documents\Msc\prohgmena_themata_java\01_projects\3\source\msc_java_project_final\weatherapp with class loader jdk.internal.loader.ClassLoaders$AppClassLoader@76ed5528 
 Loaded from file:/C:/Users/billy/.m2/repository/org/apache/derby/derby/10.15.2.0/derby-10.15.2.0.jar
 java.vendor=Oracle Corporation
 java.runtime.version=21.0.1+12-29
-user.dir=C:\Users\billy\Documents\Msc\prohgmena_themata_java\01_projects\3\source\msc_poroject_final
+user.dir=C:\Users\billy\Documents\Msc\prohgmena_themata_java\01_projects\3\source\msc_java_project_final
 os.name=Windows 10
 os.arch=amd64
 os.version=10.0

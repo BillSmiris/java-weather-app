@@ -6,11 +6,8 @@ import org.unipi.mpsp2343.dbResultModels.Maximum;
 import org.unipi.mpsp2343.dbResultModels.Minimum;
 
 import java.io.IOException;
-import java.sql.Time;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
 public class Main {
