@@ -28,12 +28,12 @@ public class Average {
         this.average = average;
     }
 
-    public void print(String column) {
+    public void print(String column, String symbol) {
         if(city.isEmpty()){
-            System.out.println("\nAverage " + column + " among all cities: " + this.average);
+            System.out.println("\nAverage " + column + " among all cities: " + this.average + symbol);
         }
         else {
-            System.out.println("\nAverage " + column + " in " + this.city + ": " + this.average);
+            System.out.println("\nAverage " + column + " in " + this.city + ": " + this.average + symbol);
         }
     }
 }

@@ -57,13 +57,13 @@ public class Maximum {
         return dateFormat.format(this.timestamp);
     }
 
-    public void print(String column) {
+    public void print(String column, String symbol) {
         if(allCities){
             System.out.println("\nMaximum " + column + " of all cities:");
-            System.out.println("\n" + this.city + ": " + this.maximum + " at " + this.getFormattedTimestamp());
+            System.out.println("\n" + this.city + ": " + this.maximum  + symbol + " at " + this.getFormattedTimestamp());
         }
         else {
-            System.out.println("\nMaximum " + column + " in " + this.city + ": " + this.maximum + " at " + this.getFormattedTimestamp());
+            System.out.println("\nMaximum " + column + " in " + this.city + ": " + this.maximum  + symbol + " at " + this.getFormattedTimestamp());
         }
     }
 }

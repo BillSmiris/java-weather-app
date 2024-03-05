@@ -152,17 +152,25 @@ public class DbProvider implements AutoCloseable{ //implements AutoCloseable so 
         boolean forCity = !city.isEmpty();
         try (Statement statement = connection.createStatement();
              PreparedStatement preparedStatement = connection.prepareStatement(
-                     "SELECT city, MAX(" + column + ") AS \"max\", timestamp FROM WEATHERDATA "
-                             + (forCity ? "WHERE LOWER(city) = ?" : ""));){
+                     "SELECT city," + column + ", timestamp FROM WEATHERDATA"
+                             + (forCity ? " WHERE LOWER(city) = ?" : ""));){
 
             if(forCity){
                 preparedStatement.setString(1, city.toLowerCase());
             }
 
             ResultSet rs = preparedStatement.executeQuery();
-
-            while(rs.next()){
-                maximum = new Maximum(rs.getString("city"), rs.getInt("max"), rs.getTimestamp("timestamp"), !forCity);
+            if(rs.next()) {
+                maximum = new Maximum(null, 0, null, !forCity);
+                int temp;
+                do {
+                    temp = rs.getInt(column);
+                    if(temp >= maximum.getMaximum()){
+                        maximum.setMaximum(temp);
+                        maximum.setCity(rs.getString("city"));
+                        maximum.setTimestamp(rs.getTimestamp("timestamp"));
+                    }
+                }while (rs.next());
             }
 
         } catch (SQLException ex) {
@@ -176,20 +184,28 @@ public class DbProvider implements AutoCloseable{ //implements AutoCloseable so 
     //can get minimum across all cities or for a user entered city
     public Minimum getMinimum(String column, String city){
         Minimum minimum = null;
-        boolean includeCity = !city.isEmpty();
+        boolean forCity = !city.isEmpty();
         try (Statement statement = connection.createStatement();
              PreparedStatement preparedStatement = connection.prepareStatement(
-                     "SELECT city, MIN(" + column + ") AS \"min\" FROM WEATHERDATA "
-                             + (includeCity ? "WHERE LOWER(city) = ? GROUP BY city" : ""));){
+                     "SELECT city," + column + ", timestamp FROM WEATHERDATA"
+                             + (forCity ? " WHERE LOWER(city) = ?" : ""));){
 
-            if(includeCity){
+            if(forCity){
                 preparedStatement.setString(1, city.toLowerCase());
             }
 
             ResultSet rs = preparedStatement.executeQuery();
-
-            while(rs.next()){
-                minimum = new Minimum(rs.getString("city"), rs.getInt("min"), rs.getTimestamp("timestamp"), !includeCity);
+            if(rs.next()) {
+                minimum = new Minimum(null, Integer.MAX_VALUE, null, !forCity);
+                int temp;
+                do {
+                    temp = rs.getInt(column);
+                    if(temp <= minimum.getMinimum()){
+                        minimum.setMinimum(temp);
+                        minimum.setCity(rs.getString("city"));
+                        minimum.setTimestamp(rs.getTimestamp("timestamp"));
+                    }
+                }while (rs.next());
             }
 
         } catch (SQLException ex) {

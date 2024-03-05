@@ -56,13 +56,13 @@ public class Minimum {
         return dateFormat.format(this.timestamp);
     }
 
-    public void print(String column) {
+    public void print(String column, String symbol) {
         if(allCities){
             System.out.println("\nMinimum " + column + " of all cities:");
-            System.out.println("\n" + this.city + ": " + this.minimum + " at " + this.getFormattedTimestamp());
+            System.out.println("\n" + this.city + ": " + this.minimum  + symbol + " at " + this.getFormattedTimestamp());
         }
         else {
-            System.out.println("\nMinimum " + column + " in " + this.city + ": " + this.minimum + " at " + this.getFormattedTimestamp());
+            System.out.println("\nMinimum " + column + " in " + this.city + ": " + this.minimum + symbol + " at " + this.getFormattedTimestamp());
         }
     }
 }

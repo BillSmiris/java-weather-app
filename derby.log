@@ -1,6 +1,6 @@
 ----------------------------------------------------------------
-Tue Mar 05 00:04:25 EET 2024:
-Booting Derby version The Apache Software Foundation - Apache Derby - 10.15.2.0 - (1873585): instance a816c00e-018e-0b7f-23f3-00000f4a6960 
+Tue Mar 05 21:53:44 EET 2024:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.15.2.0 - (1873585): instance a816c00e-018e-102d-d92d-00000f4a9958 
 on database directory C:\Users\billy\Documents\Msc\prohgmena_themata_java\01_projects\3\source\msc_poroject_final\weatherapp with class loader jdk.internal.loader.ClassLoaders$AppClassLoader@76ed5528 
 Loaded from file:/C:/Users/billy/.m2/repository/org/apache/derby/derby/10.15.2.0/derby-10.15.2.0.jar
 java.vendor=Oracle Corporation

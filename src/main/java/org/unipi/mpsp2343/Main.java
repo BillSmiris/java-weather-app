@@ -86,7 +86,7 @@ public class Main {
                     if(enterCity("Temperature")) { //prompt user to enter a city. pass relevant header
                         Average average = dbProvider.getAverage("temperature", userInput); //query the db for the required data
                         if(average != null){ //if data is found in the db
-                            average.print("temperature"); //print data. pass a human-readable name that indicates what column the data is from
+                            average.print("temperature", "C"); //print data. pass a human-readable name that indicates what column the data is from
                         }
                         else {
                             System.out.println("\nNo data found!"); //print message if data is not found
@@ -98,7 +98,7 @@ public class Main {
                     if(enterCity("Humidity")) {
                         Average average = dbProvider.getAverage("humidity", userInput);
                         if(average != null){
-                            average.print("humidity");
+                            average.print("humidity", "%");
                         }
                         else {
                             System.out.println("\nNo data found!");
@@ -110,7 +110,7 @@ public class Main {
                     if(enterCity("Wind speed")) {
                         Average average = dbProvider.getAverage("windSpeed", userInput);
                         if(average != null){
-                            average.print("wind speed");
+                            average.print("wind speed", "Km/h");
                         }
                         else {
                             System.out.println("\nNo data found!");
@@ -122,7 +122,7 @@ public class Main {
                     if(enterCity("UV Index")) {
                         Average average = dbProvider.getAverage("uvIndex", userInput);
                         if(average != null){
-                            average.print("UV index");
+                            average.print("UV index", "");
                         }
                         else {
                             System.out.println("\nNo data found!");
@@ -153,7 +153,7 @@ public class Main {
                      if(enterCity("Temperature")) {
                          Maximum maximum = dbProvider.getMaximum("temperature", userInput);
                          if(maximum != null){
-                             maximum.print("temperature");
+                             maximum.print("temperature", "C");
                          }
                          else {
                              System.out.println("\nNo data found!");
@@ -165,7 +165,7 @@ public class Main {
                      if(enterCity("Humidity")) {
                          Maximum maximum = dbProvider.getMaximum("humidity", userInput);
                          if(maximum != null){
-                             maximum.print("humidity");
+                             maximum.print("humidity", "%");
                          }
                          else {
                              System.out.println("\nNo data found!");
@@ -177,7 +177,7 @@ public class Main {
                      if(enterCity("Wind speed")) {
                          Maximum maximum = dbProvider.getMaximum("windSpeed", userInput);
                          if(maximum != null){
-                             maximum.print("wind speed");
+                             maximum.print("wind speed", "Km/h");
                          }
                          else {
                              System.out.println("\nNo data found!");
@@ -189,7 +189,7 @@ public class Main {
                      if(enterCity("UV Index")) {
                          Maximum maximum = dbProvider.getMaximum("uvIndex", userInput);
                          if(maximum != null){
-                             maximum.print("UV index");
+                             maximum.print("UV index", "");
                          }
                          else {
                              System.out.println("\nNo data found!");
@@ -220,7 +220,7 @@ public class Main {
                      if(enterCity("Temperature")) {
                          Minimum minimum = dbProvider.getMinimum("temperature", userInput);
                          if(minimum != null){
-                             minimum.print("temperature");
+                             minimum.print("temperature", "C");
                          }
                          else {
                              System.out.println("\nNo data found!");
@@ -232,7 +232,7 @@ public class Main {
                      if(enterCity("Humidity")) {
                          Minimum minimum = dbProvider.getMinimum("humidity", userInput);
                          if(minimum != null){
-                             minimum.print("humidity");
+                             minimum.print("humidity", "%");
                          }
                          else {
                              System.out.println("\nNo data found!");
@@ -244,7 +244,7 @@ public class Main {
                      if(enterCity("Wind speed")) {
                          Minimum minimum = dbProvider.getMinimum("windSpeed", userInput);
                          if(minimum != null){
-                             minimum.print("wind speed");
+                             minimum.print("wind speed", "Km/h");
                          }
                          else {
                              System.out.println("\nNo data found!");
@@ -256,7 +256,7 @@ public class Main {
                      if(enterCity("UV Index")) {
                          Minimum minimum = dbProvider.getMinimum("uvIndex", userInput);
                          if(minimum != null){
-                             minimum.print("UV index");
+                             minimum.print("UV index", "");
                          }
                          else {
                              System.out.println("\nNo data found!");
